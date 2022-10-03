@@ -1,0 +1,131 @@
+{"receptai":
+[
+
+	{	
+		"kategorija": "Salotos",
+		"name":"Mėlynojo kopūsto salotos su pomidorais",
+		"ingredients":
+		[
+			{
+				"ingredientName": "Mėlynasis kopūstas",
+				"quantity": "200 g"
+                
+			},
+            {
+				"ingredientName": "Pomidorai",
+				"quantity": "80 g"
+                
+			},
+            {
+				"ingredientName": "Agurkai",
+				"quantity": "80 g"
+                
+			},
+            {
+				"ingredientName": "Grietinė",
+				"quantity": "1 šaukštas"
+                
+			}
+            
+		]
+		
+	},
+    {	"kategorija": "Desertas",
+		"name":"Ananasas su cinamonu",
+		"ingredients":
+		[
+			{
+				"ingredientName": "Anananas",
+				"quantity": "200 g"
+                
+			},
+            {
+				"ingredientName": "Cinamonas",
+				"quantity": "0,5 a.š"
+                
+			}
+            
+		]
+	},
+    {	"kategorija": "Salotos",
+		"name":"Morkų salotos su poru ir cukinija",
+		"ingredients":
+		[
+			{
+				"ingredientName": "Morkos",
+				"quantity": "200 g"
+                
+			},
+            {
+				"ingredientName": "Cukinija",
+				"quantity": "80 g"
+                
+			},
+            {
+				"ingredientName": "poras",
+				"quantity": "50 g"
+                
+			},
+            {
+				"ingredientName": "Alyvuogių aliejus",
+				"quantity": "1 a.š"
+                
+			}
+            
+		]
+		
+	},
+    {	"kategorija": "Salotos",
+		"name":"Saliero salotos su ridikėliais ir česnaku",
+		"ingredients":
+		[
+			{
+				"ingredientName": "Saliero šaknis",
+				"quantity": "200 g"
+                
+			},
+            {
+				"ingredientName": "Ridikėliai",
+				"quantity": "100 g"
+                
+			},
+            {
+				"ingredientName": "Česnakas",
+				"quantity": "15 g"
+                
+			}
+            
+		]
+		
+	},
+    {	"kategorija": "Desertas",
+		"name":"Avižų pieno, varškės ir uogų kokteilis",
+		"ingredients":
+		[
+			{
+				"ingredientName": "Bananas",
+				"quantity": "100 g"
+                
+			},
+            {
+				"ingredientName": "varškė",
+				"quantity": "60 g"
+                
+			},
+            {
+				"ingredientName": "Uogos pagal pasirinkimą",
+				"quantity": "30 g"
+                
+			},
+            {
+				"ingredientName": "Augalinis peinas",
+				"quantity": "70 ml"
+                
+			}
+
+            
+		]
+	}
+]
+
+}
