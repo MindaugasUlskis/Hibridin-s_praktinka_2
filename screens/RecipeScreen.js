@@ -1,126 +1,126 @@
 import { useRoute, } from '@react-navigation/native';
-import { Button, View, Text, StyleSheet, TextInput, ScrollView} from 'react-native';
+import { Button, View, Text, StyleSheet, TextInput, ScrollView, TouchableOpacity } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { useEffect, useState } from 'react';
+import uuid from 'react-native-uuid';
 
-const RecipeScreen = ({ navigation }, props) => {
+const RecipeScreen = ({ navigation }) => {
+  
   const [textInputValue, setTextInputValue] = useState('');
-
-
-
   const [comments, setComments] = React.useState([]);
-
+ 
   const getStorage = async () => {
-    const coms = await AsyncStorage.getItem('ra')
+    const coms = await AsyncStorage.getItem(route.params.recipe.name)
     if (coms !== null) {
       setComments(prevState => [...prevState, ...JSON.parse(coms)])
+      console.log(JSON.parse(coms));
     }
   }
 
 
-  let coms = [];
-  const setStorage = async (comment) => {
-    
-    try {
-      let storedComs = await AsyncStorage.getItem('ra');
-      if (storedComs !== null) {
-        coms = JSON.parse(storedComs);
-      }
-      coms.push(comment)
-      setComments(coms)
-      await AsyncStorage.setItem('ra', JSON.stringify(coms));
-      
-    } catch (error) {
+const setStorage = async (comment) => {
+  let upcoms = [];
+  try {
+    let storedComs = await AsyncStorage.getItem(route.params.recipe.name);
+    if (storedComs !== null) {
+      upcoms = JSON.parse(storedComs)
     }
-  };
+    upcoms.push(comment)
+    await AsyncStorage.setItem(route.params.recipe.name, JSON.stringify(upcoms))
+    setComments([])
+    setComments(prevState => [...prevState, ...upcoms])
+  } catch (error) {
+  }
+};
+const del = async (id) =>{
+  const coms = await AsyncStorage.getItem(route.params.recipe.name)
+  upcoms = JSON.parse(coms)
+  filteredComs = upcoms.filter((com) => com.id !== id)
+  setComments([])
+  setComments(prevState => [...prevState, ...filteredComs])
+  await AsyncStorage.setItem(route.params.recipe.name, JSON.stringify(filteredComs))
 
-
-
-
-
-  const remove = async () => {
-    try {
-        await AsyncStorage.removeItem('ra');
-        return true;
-        
-    }
-    catch(exception) {
-        return false;
-    }
 }
-  const route = useRoute();
+
+    const route = useRoute();
+    useEffect(getStorage,[])
+    console.log(comments)
+
+    return (
+
+        <View style={styles.container}>
+
+            <Text style={{ fontSize: 36, color: 'purple', fontWeight: 'bold' }}>{route.params.recipe.name}</Text>
+            <Text>{route.params.recipe.ingredients.map(item =>
+                <Text style={styles.item}>{item.ingredientName}: {item.quantity} {"\n"}</Text>
+
+            )}</Text>
+            <TextInput
+                style={styles.input}
+                placeholder="comment"
+                onChangeText={(value) => setTextInputValue(value)}
+                underlineColorAndroid='transparent'
 
 
-
-  useEffect(getStorage,[])
-  return (
-
-    <View style={styles.container}>
-
-      <Text style={{ fontSize: 36, color: 'purple', fontWeight: 'bold' }}>{route.params.nn}</Text>
-      <Text>{route.params.ingredients.map(item =>
-        <Text style={styles.item}>{item.ingredientName}: {item.quantity} {"\n"}</Text>
-
-      )}</Text>
-      <TextInput
-        style={styles.input}
-        value={textInputValue}
-        onChangeText={(data) => setTextInputValue(data)}
-      />
-      <Button
-        color={'purple'}
-        title="Post!"
-        
-        onPress={() => { setStorage(textInputValue) }}
-      />
-      <ScrollView>
+            />
+            <ScrollView>
       {comments.map((item) => (
       
+      <TouchableOpacity onPress={() => { del(item.id)}}>
         <View>
-          <Text style={styles.input}>{item}</Text>
+          <Text style={styles.input}>{item.keyname}</Text>
         </View>
-    ))}
+        </TouchableOpacity>
+    ))} 
 </ScrollView>  
-<Button
-        color={'purple'}
-        title="Delete all comments"
-        
-        onPress={() => { remove();  setStorage('');}}
-        
-      />
+            <Button
 
-    </View>
-  );
+                onPress={() => { setStorage({keyname: textInputValue, txt: route.params.recipe.name, id: t=uuid.v4()}) }}
+                color={'purple'}
+                title="Post!"
+
+            />
+
+            <Button
+                onPress={() => { getStorage() }}
+                color={'purple'}
+                title="Delete all comments"
+
+            />
+            
+
+        </View>
+        
+    );
 }
 
 export default RecipeScreen
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    paddingTop: 40,
-    paddingHorizontal: 20
-  },
-  item: {
-    flexDirection: 'column',
-    marginTop: 24,
-    padding: 30,
-    fontSize: 24
+    container: {
+        flex: 1,
+        backgroundColor: '#fff',
+        paddingTop: 40,
+        paddingHorizontal: 20
+    },
+    item: {
+        flexDirection: 'column',
+        marginTop: 24,
+        padding: 30,
+        fontSize: 24
 
-  },
-  input: {
-    height: 40,
-    margin: 12,
-    borderWidth: 1,
-    padding: 10,
+    },
+    input: {
+        height: 40,
+        margin: 12,
+        borderWidth: 1,
+        padding: 10,
 
-  },
-  item:{
-    marginTop: 24,
-    padding: 30,
-    backgroundColor: 'green',
-    fontSize: 24
-  }
+    },
+    item: {
+        marginTop: 24,
+        padding: 30,
+        fontSize: 24
+    }
 
 });

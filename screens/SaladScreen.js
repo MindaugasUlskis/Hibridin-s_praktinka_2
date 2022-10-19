@@ -1,40 +1,38 @@
+import { useRoute, } from '@react-navigation/native';
+import { Button, View, Text, StyleSheet, TextInput, ScrollView} from 'react-native';
 
-import { Button, View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
-import React, { useState } from "react";
-
-
-
+import React, {  } from 'react';
 const customData = require('../Meniu.json');
-
-const pressHandler = (item, navigation) => {
-  console.log(item.ingredients.quantity);
-  navigation.navigate('Recipe', {
-    nn: item.name,
-    ingredients: item.ingredients,
-  })
-}
+const SaladScreen = ({ navigation }, props) => {
+ 
 
 
-const items = customData.receptai.filter(kategorija =>
-  kategorija.kategorija ==='Salotos'
-  )
+  const pressHandler = (item, navigation) => {
+    navigation.navigate('Recipe', {
+      recipe: item
+  
+    })
+  }
 
-const SaladScreen = ({ navigation }) => {
+
+  const route = useRoute();
+let filtername = route.params.nn
+ 
+
   return (
-    <View style={styles.container} >
-
     <ScrollView>
-    { items.map(item =>
-      <TouchableOpacity onPress={() => pressHandler(item, navigation)}>
-        <View>
-          <Text style={styles.item}>{item.name}</Text>
-        </View>
-        </TouchableOpacity>
+    { filtername.map (item =>
+      <Button
+      onPress={() => pressHandler(item, navigation)}
+      color={'red'}
+    title={item.name}
+  />
     )}
-</ScrollView>  
-    </View>
+</ScrollView>
   );
 }
+
+export default SaladScreen
 
 const styles = StyleSheet.create({
   container: {
@@ -42,6 +40,20 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     paddingTop: 40,
     paddingHorizontal: 20
+  },
+  item: {
+    flexDirection: 'column',
+    marginTop: 24,
+    padding: 30,
+    fontSize: 24
+
+  },
+  input: {
+    height: 40,
+    margin: 12,
+    borderWidth: 1,
+    padding: 10,
+
   },
   item:{
     marginTop: 24,
@@ -51,7 +63,3 @@ const styles = StyleSheet.create({
   }
 
 });
-
-
-  export default SaladScreen
-
